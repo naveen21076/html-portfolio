@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Mamidi Naveen Krishna Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #81d4fa;
+            margin-bottom: 40px;
+            font-size: 3em;
+            font-weight: 700;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-title {
+            font-size: 1.5em;
+            color: #4fc3f7;
+            margin-bottom: 10px;
+        }
+
+        .project-details {
+            font-style: italic;
+            color: #bdbdbd;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+
+        .tools-used {
+            font-weight: bold;
+            color: #121212;
+            background-color: #4fc3f7;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Projects</h1>
+
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-title">Enhancing Brain Tumor Segmentation through Deep Learning</div>
+                    <div class="project-details">Medical and Deep Learning | 2021 - 2025</div>
+                    <div class="project-description">The proposed UNet-VT model achieves precise brain tumor segmentation with a Dice coefficient of 80.45% and mean IOU of 89.5%, using the BRATS 2020 dataset, enhancing clinical and research applications.</div>
+                    <div class="tools-used">TensorFlow, Keras</div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-title">Modelling Dementia Progression using Gaussian HMM and ML</div>
+                    <div class="project-details">Medical and Machine Learning | 2020 - 2021</div>
+                    <div class="project-description">An integrated Gaussian HMM and ML model-based Tkinter GUI detects early Alzheimer's, predicts outcomes, and offers interactive support via ChatGPT and a speech recognition tool for patients and caregivers.</div>
+                    <div class="tools-used">Jupyter Notebook, Tkinter, Voice Recognition lib</div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-title">Personal Diary Management</div>
+                    <div class="project-details">DBMS | 2018 - 2019</div>
+                    <div class="project-description">Developed a secure Personal Digital Diary Management System using Flask and SQLite, featuring user authentication, category-based entries, and a user-friendly web interface for seamless diary management and advanced querying.</div>
+                    <div class="tools-used">HTML, CSS, JS, Python, SQLite</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Mamidi Naveen Krishna. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

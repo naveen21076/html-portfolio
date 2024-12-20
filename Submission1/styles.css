@@ -1,0 +1,24 @@
+/* styles.css */
+body {
+    background-color: #000; /* Set background color to black */
+    color: #fff; /* Default font color */
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+.container {
+    color: #fff; /* Font color for the main container */
+}
+
+.dashboard-links .link-box {
+    background-color: #6a0dad; /* Purple box color */
+    color: white;
+}
+
+.dashboard-links .link-box:hover {
+    background-color: #4b0082; /* Darker purple on hover */
+}
+
+/* Add any other global styles as needed */

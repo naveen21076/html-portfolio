@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* General page styling */
+        body {
+            background-color: #1a1a1a; /* Dark background color */
+            color: #fff;
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .register-container {
+            background-color: #333; /* Dark grey background for the form */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #fff; /* White color */
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        label {
+            font-size: 1em;
+            color: #ccc;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #222;
+            color: #fff;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .register-btn {
+            background-color: #6a0dad; /* Purple background */
+            color: white;
+            padding: 13px 10px;
+            border: 2px solid white; /* White border */
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1em;
+            width: 100%;
+            text-align: center;
+            display: block;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .register-btn:hover {
+            background-color: #4b0082; /* Darker purple on hover */
+        }
+
+        .back-link {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        #passwordStrength {
+            height: 10px;
+            margin-top: 5px;
+            width: 100%;
+            background-color: transparent;
+        }
+
+        .strength-message {
+            color: #fff;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="register-container">
+        <h1>Register</h1>
+        <form action="dashboard.html" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Choose a username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" required onkeyup="checkPasswordStrength()">
+            <div id="passwordStrength"></div>
+            <div id="strengthMessage" class="strength-message"></div>
+
+            <button type="submit" class="register-btn">Register</button>
+        </form>
+        <a href="C:\Users\nk432\Desktop\Assignment-1\AIE21076\index.html" class="back-link">Back to Home</a>
+    </div>
+
+    <script>
+        function checkPasswordStrength() {
+            // user types in the password input field
+            const password = document.getElementById('password').value;
+            const strengthDisplay = document.getElementById('strengthMessage');
+            
+            // Initialize strength score
+            let strength = 0;
+            
+            // Check password criteria
+            if (password.length >= 8) strength++; // Length check
+            if (/[A-Z]/.test(password)) strength++; // Uppercase letter check
+            if (/[0-9]/.test(password)) strength++; // Number check
+            if (/[!@#$%^&*]/.test(password)) strength++; // Special character check
+            
+            // Display strength message based on score
+            let message = '';
+            switch (strength) {
+                case 0:
+                case 1:
+                    message = 'Weak';
+                    break;
+                case 2:
+                    message = 'Moderate';
+                    break;
+                case 3:
+                    message = 'Strong';
+                    break;
+                case 4:
+                    message = 'Very Strong';
+                    break;
+            }
+            
+            // Update the strength display
+            strengthDisplay.textContent = message;
+        }
+        
+        // Add event listener to password input
+        document.getElementById('password').addEventListener('input', checkPasswordStrength)
+    </script>
+</body>
+
+</html>

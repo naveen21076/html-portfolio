@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a; /* Dark background color */
+            color: #fff;
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-size: cover;
+
+        }
+
+        .login-container {
+            background-color: #333; /* Dark grey background for the form */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .todo-container {
+            background-color: #333; /* Dark background with opacity */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            width: calc(50% - 22px);
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #222;
+            color: #fff;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .button {
+            background-color: #6a0dad; /* Purple background */
+            color: white;
+            padding: 13px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .button:hover {
+            background-color: #4b0082; /* Darker purple */
+        }
+
+        .task-list {
+            margin-top: 20px;
+            list-style-type: none;
+            padding: 0;
+            position: relative;
+        }
+
+        .task-item {
+            background-color: #444;
+            color: #fff;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .task-item.completed {
+            text-decoration: line-through;
+            background-color: #666;
+        }
+
+        .task-item.completed::before {
+            content: "";
+            background-image: url('https://media.giphy.com/media/l4FGt1m9Zw2rfdg5m/giphy.gif'); /* Replace with your GIF URL */
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .task-item .delete {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .filter-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .filter-buttons button {
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .filter-buttons button:hover {
+            background-color: #4b0082;
+        }
+
+        .clear-completed {
+            background-color: #d9534f; /* Red background */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .clear-completed:hover {
+            background-color: #c9302c; /* Darker red */
+        }
+
+        .all-completed-box {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .all-completed-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="todo-container">
+        <h1>To-Do List</h1>
+        <input type="text" id="taskDescription" placeholder="Task Description">
+        <input type="date" id="taskDueDate">
+        <button class="button" id="addTask">Add Task</button>
+        <button class="clear-completed" id="clearCompleted">Clear Completed Tasks</button>
+
+        <ul class="task-list" id="taskList"></ul>
+
+        <div class="filter-buttons">
+            <button id="showAll">All</button>
+            <button id="showActive">Active</button>
+            <button id="showCompleted">Completed</button>
+        </div>
+
+        <div class="all-completed-box" id="allCompletedBox">
+            <h2>All Tasks Completed!</h2>
+            <img src="./todo.gif" alt="Congratulations GIF">
+        </div>
+    </div>
+
+    <script>
+        function checkAllCompleted() {
+            const tasks = document.querySelectorAll('.task-item');
+            const allCompletedBox = document.getElementById('allCompletedBox');
+            if (tasks.length > 0 && Array.from(tasks).every(task => task.classList.contains('completed'))) {
+                allCompletedBox.style.display = 'block';
+            } else {
+                allCompletedBox.style.display = 'none';
+            }
+        }
+
+        document.getElementById('addTask').addEventListener('click', function() {
+            const description = document.getElementById('taskDescription').value;
+            const dueDate = document.getElementById('taskDueDate').value;
+            if (description === '') {
+                alert('Please enter a task description.');
+                return;
+            }
+
+            const taskList = document.getElementById('taskList');
+            const taskItem = document.createElement('li');
+            taskItem.className = 'task-item';
+            taskItem.innerHTML = `${description} <span class="delete">X</span>`;
+            taskItem.dataset.dueDate = dueDate;
+
+            taskItem.addEventListener('click', function() {
+                taskItem.classList.toggle('completed');
+                checkAllCompleted();
+            });
+
+            taskItem.querySelector('.delete').addEventListener('click', function(e) {
+                e.stopPropagation();
+                taskItem.remove();
+                checkAllCompleted();
+            });
+
+            taskList.appendChild(taskItem);
+
+            document.getElementById('taskDescription').value = '';
+            document.getElementById('taskDueDate').value = '';
+
+            sortTasks();
+            checkAllCompleted();
+        });
+
+        document.getElementById('showAll').addEventListener('click', function() {
+            const tasks = document.querySelectorAll('.task-item');
+            tasks.forEach(task => task.style.display = 'block');
+        });
+
+        document.getElementById('showActive').addEventListener('click', function() {
+            const tasks = document.querySelectorAll('.task-item');
+            tasks.forEach(task => {
+                task.style.display = task.classList.contains('completed') ? 'none' : 'block';
+            });
+        });
+
+        document.getElementById('showCompleted').addEventListener('click', function() {
+            const tasks = document.querySelectorAll('.task-item');
+            tasks.forEach(task => {
+                task.style.display = task.classList.contains('completed') ? 'block' : 'none';
+            });
+        });
+
+        document.getElementById('clearCompleted').addEventListener('click', function() {
+            const completedTasks = document.querySelectorAll('.task-item.completed');
+            completedTasks.forEach(task => task.remove());
+            checkAllCompleted();
+        });
+
+        function sortTasks() {
+            const taskList = document.getElementById('taskList');
+            const tasks = Array.from(taskList.querySelectorAll('.task-item'));
+            tasks.sort((a, b) => {
+                return new Date(a.dataset.dueDate) - new Date(b.dataset.dueDate);
+            });
+            tasks.forEach(task => taskList.appendChild(task));
+        }
+    </script>
+</body>
+
+</html>

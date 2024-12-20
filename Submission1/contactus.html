@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Naveen Krishna's Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external stylesheet -->
+    <style>
+        /* Internal stylesheet for specific styles */
+        #contact-form {
+            font-family: 'Open Sans', sans-serif;
+            color: #ccc; /* Font color for the form */
+            margin: 20px;
+        }
+        
+        .form-field {
+            margin-bottom: 15px;
+        }
+        
+        .form-field input,
+        .form-field textarea {
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            width: 100%;
+            background-color: #222; /* Background for inputs */
+            color: #fff; /* Text color for inputs */
+        }
+        
+        button {
+            background-color: #6a0dad; /* Purple button color */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        button:hover {
+            background-color: #4b0082; /* Darker purple on hover */
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #ccc; /* Footer text color */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 style="text-align:center; color: #fff;">Contact Me</h1>
+    </header>
+    
+    <section>
+        <form id="contact-form" action="mailto:your-email@example.com" method="POST" enctype="text/plain" onsubmit="return validateForm()">
+            <div class="form-field">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-field">
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-field">
+                <label for="message">Your Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <div class="form-field">
+                <label for="captcha">Enter Captcha: <span id="captcha-question"></span></label>
+                <input type="text" id="captcha" name="captcha" required>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+    
+    <footer>
+        <p>&copy; 2024 Mamidi Naveen Krishna. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to generate a random math problem
+        function generateMathProblem() {
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            const operation = Math.random() < 0.5 ? '+' : '-';
+            const question = `${num1} ${operation} ${num2} = ?`;
+            const answer = operation === '+' ? num1 + num2 : num1 - num2;
+            return { question, answer };
+        }
+
+        // Generate the CAPTCHA when the page loads
+        const captcha = generateMathProblem();
+        document.getElementById('captcha-question').textContent = captcha.question;
+
+        // Function to validate the form
+        function validateForm() {
+            const userAnswer = parseInt(document.getElementById('captcha').value, 10);
+            if (userAnswer !== captcha.answer) {
+                alert('Incorrect CAPTCHA. Please try again.');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
